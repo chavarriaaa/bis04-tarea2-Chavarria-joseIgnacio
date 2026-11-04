@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame {
     
     
 public VentanaPrincipal(){
-    super("Coopetica - Asociados");
+    super("Coopetica - Asociados - José Ignacio Chavarría Delgado");
     try {
         servicio = new AsociadoServicio();
     }
@@ -46,6 +46,7 @@ public VentanaPrincipal(){
     
     
     JPanel panelCampos = new JPanel(new GridLayout(0,2,5,5));
+    add(new JLabel("Estudiante: José Ignacio Chavarría Delgado"), BorderLayout.NORTH);
     panelCampos.add(new JLabel("Cedula: "));    
     panelCampos.add(txtCedula);   
     panelCampos.add(new JLabel("Nombre: "));   
