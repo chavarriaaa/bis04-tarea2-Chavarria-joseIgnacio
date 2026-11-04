@@ -26,6 +26,7 @@ public class VentanaPrincipal extends JFrame {
     private JTextField txtSaldo= new JTextField (12);    
     private JTextArea areaSalida = new JTextArea (12, 35);      
     private JButton btnListar = new JButton("Listar");
+    private JButton btnRegistrar = new JButton("Registrar");
     
     
 public VentanaPrincipal(){
@@ -40,6 +41,7 @@ public VentanaPrincipal(){
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLayout(new BorderLayout(8,8));
     
+    
     JPanel panelCampos = new JPanel(new GridLayout(0,2,5,5));
     panelCampos.add(new JLabel("Cedula: "));    
     panelCampos.add(txtCedula);   
@@ -48,14 +50,16 @@ public VentanaPrincipal(){
     panelCampos.add(new JLabel("Saldo Aportes: "));   
     panelCampos.add(txtSaldo); 
     panelCampos.add(new JLabel("Listar : "));   
-    panelCampos.add(btnListar); 
+    panelCampos.add(btnListar);
+    panelCampos.add(new JLabel("Registrar: "));
+    panelCampos.add(btnRegistrar);
     add(panelCampos, BorderLayout.WEST);
     
     areaSalida.setEditable(false);
    add(new JScrollPane(areaSalida), BorderLayout.CENTER);
    
    btnListar.addActionListener(e -> Listar());
-   
+   btnRegistrar.addActionListener(e -> registrar());
    pack();
    setLocationRelativeTo(null);  
 }
@@ -75,6 +79,28 @@ catch(IOException e) {
     JOptionPane.showMessageDialog(this, "Ocurrió un problema al leer los datos");
 }
 }
+private void registrar(){
+try{
+    String mensaje = servicio.registrar(txtCedula.getText(), txtNombre.getText(), txtSaldo.getText());
+    
+    if (mensaje.equals("OK")){
+    JOptionPane.showMessageDialog(this, "Asociado registrado exitosamente ","Registro exitoso ", JOptionPane.INFORMATION_MESSAGE);
+    txtCedula.setText("");
+    txtNombre.setText("");
+    txtSaldo.setText("");
+    txtCedula.requestFocus();
+    Listar();
+    
+}else {
+    
+    JOptionPane.showMessageDialog(this , mensaje, "No se pudo registrar", JOptionPane.WARNING_MESSAGE);
+    }
+}catch (IOException e){
+JOptionPane.showMessageDialog(this, "Ocurrió un problema al guardar los datos","ERROR", JOptionPane.ERROR_MESSAGE);
+
+}
+}
+    
 }
 
     

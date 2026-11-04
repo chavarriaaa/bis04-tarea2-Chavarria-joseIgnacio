@@ -17,24 +17,42 @@ public ArrayList<Asociado> listar() throws IOException {
 return dao.listar();
 }
 
-public String registrar(Asociado a)throws IOException{
+public String registrar(String cedula, String nombre, String saldoTexto)throws IOException{
     
-    if(a.getcedula().isEmpty()||a.getnombre().isEmpty()){
-        return "La cedula y el nombre son obligatorias.";
+    cedula = cedula.trim();
+    nombre = nombre.trim();
+    saldoTexto = saldoTexto.trim();
+    
+    if(cedula.isEmpty()||nombre.isEmpty()||saldoTexto.isEmpty()){
+        return "La cedula, nombre y saldo son obligatorios.";
     }
-    if (a.getSaldoAporte()<0){
-     return "El saldo no puede ser negativo";   
+    double saldo;
+    try{
+    
+    saldo = Double.parseDouble(saldoTexto);
+    
+    }catch (NumberFormatException e){
+        return "El saldo debe ser un número. ";
+    
+    
     }
-     for (Asociado asociado : dao.listar()){
-     
-      if (asociado.getcedula().equals(a.getcedula()) )
-        return "Ya existe un asociado con esa cedula";
- 
-    }
-  dao.agregar(a);
-  return "OK";
+   
+  return registrar (new Asociado(cedula, nombre, saldo));
+}
+public String registrar (Asociado a)throws IOException{
+if(a.getcedula().isEmpty()||a.getnombre().isEmpty()){
+return "La cedula y el nombre son obligatorios. ";
+}
+if(a.getSaldoAporte()<0){
+return "El saldo no puede ser nagativo.";
+}
+for (Asociado asociado : dao.listar()){
+if(asociado.getcedula().equals(a.getcedula())){
+return "Ya existe un asociado con esa cedula";
+}
+}
+dao.agregar(a);
+return"OK";
+}
 }
     
-    
-    
-}

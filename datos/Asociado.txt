@@ -1,3 +1,6 @@
 
 70111097,Pedro Herrera,6700.0
 110450837,Diego Chavarria,95000.0
+abc,abc,100000.0
+119830452,Jose Ignacio,50000.0
+80154789,cristiana,9000.0
