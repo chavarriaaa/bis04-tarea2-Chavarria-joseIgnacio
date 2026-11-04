@@ -1,4 +1,4 @@
-# Bitácora - tarea 2 - BIS=$ Programación 2
+# Bitácora - tarea 2 - BIS = Programación 2
 
 **Estudiante** : José Ignacio Chavarría Delgado
 
