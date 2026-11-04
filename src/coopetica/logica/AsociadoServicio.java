@@ -24,7 +24,7 @@ public String registrar(String cedula, String nombre, String saldoTexto)throws I
     saldoTexto = saldoTexto.trim();
     
     if(cedula.isEmpty()||nombre.isEmpty()||saldoTexto.isEmpty()){
-        return "La cedula, nombre y saldo son obligatorios.";
+        return "La cedula, nombre y saldo son obligatorias.";
     }
     double saldo;
     try{
@@ -53,6 +53,16 @@ return "Ya existe un asociado con esa cedula";
 }
 dao.agregar(a);
 return"OK";
+}public int CantidadAsociados() throws IOException{
+return dao.listar().size();
 }
+public double totalAportes() throws IOException{
+double total = 0;
+for (Asociado a : dao.listar()){
+total += a.getSaldoAporte();
+}
+return total;
+}
+
 }
     

@@ -27,6 +27,7 @@ public class VentanaPrincipal extends JFrame {
     private JTextArea areaSalida = new JTextArea (12, 35);      
     private JButton btnListar = new JButton("Listar");
     private JButton btnRegistrar = new JButton("Registrar");
+    private JButton btnResumen = new JButton("Resumen");
     
     
 public VentanaPrincipal(){
@@ -53,6 +54,8 @@ public VentanaPrincipal(){
     panelCampos.add(btnListar);
     panelCampos.add(new JLabel("Registrar: "));
     panelCampos.add(btnRegistrar);
+    panelCampos.add(new JLabel("Resumen: "));
+    panelCampos.add(btnResumen);
     add(panelCampos, BorderLayout.WEST);
     
     areaSalida.setEditable(false);
@@ -60,6 +63,8 @@ public VentanaPrincipal(){
    
    btnListar.addActionListener(e -> Listar());
    btnRegistrar.addActionListener(e -> registrar());
+   btnResumen.addActionListener(e -> resumen());
+   
    pack();
    setLocationRelativeTo(null);  
 }
@@ -99,6 +104,18 @@ try{
 JOptionPane.showMessageDialog(this, "Ocurrió un problema al guardar los datos","ERROR", JOptionPane.ERROR_MESSAGE);
 
 }
+}
+private void resumen() {
+    try {
+        int cantidad = servicio.CantidadAsociados();
+        double total = servicio.totalAportes();
+        areaSalida.setText("Asociados registrados: " + cantidad
+                + "\nTotal de aportes: " + total);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this,
+                "Ocurrio un problema al leer los datos.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
     
 }
