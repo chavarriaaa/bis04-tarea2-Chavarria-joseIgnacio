@@ -28,6 +28,8 @@ public class VentanaPrincipal extends JFrame {
     private JButton btnListar = new JButton("Listar");
     private JButton btnRegistrar = new JButton("Registrar");
     private JButton btnResumen = new JButton("Resumen");
+    private JTextField txtBuscar = new JTextField(12);
+    private JButton btnBuscar = new JButton("Buscar");
     
     
 public VentanaPrincipal(){
@@ -57,6 +59,10 @@ public VentanaPrincipal(){
     panelCampos.add(new JLabel("Resumen: "));
     panelCampos.add(btnResumen);
     add(panelCampos, BorderLayout.WEST);
+    panelCampos.add(new JLabel("Buscar cedula: "));
+    panelCampos.add(txtBuscar);
+    panelCampos.add(new JLabel("Buscar: "));
+    panelCampos.add(btnBuscar);
     
     areaSalida.setEditable(false);
    add(new JScrollPane(areaSalida), BorderLayout.CENTER);
@@ -64,7 +70,7 @@ public VentanaPrincipal(){
    btnListar.addActionListener(e -> Listar());
    btnRegistrar.addActionListener(e -> registrar());
    btnResumen.addActionListener(e -> resumen());
-   
+   btnBuscar.addActionListener(e -> buscar());
    pack();
    setLocationRelativeTo(null);  
 }
@@ -111,6 +117,20 @@ private void resumen() {
         double total = servicio.totalAportes();
         areaSalida.setText("Asociados registrados: " + cantidad
                 + "\nTotal de aportes: " + total);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this,
+                "Ocurrio un problema al leer los datos.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+private void buscar() {
+    try {
+        Asociado a = servicio.buscarPorCedula(txtBuscar.getText());
+        if (a == null) {
+            areaSalida.setText("No existe un asociado con esa cedula.");
+        } else {
+            areaSalida.setText("Asociado encontrado:\n" + a);
+        }
     } catch (IOException e) {
         JOptionPane.showMessageDialog(this,
                 "Ocurrio un problema al leer los datos.",

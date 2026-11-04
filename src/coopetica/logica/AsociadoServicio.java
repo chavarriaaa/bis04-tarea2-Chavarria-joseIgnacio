@@ -63,6 +63,16 @@ total += a.getSaldoAporte();
 }
 return total;
 }
+public Asociado buscarPorCedula (String cedula) throws IOException{
+cedula = cedula.trim();
+for (Asociado a : dao.listar()){
 
+if(a.getcedula().equals(cedula)){
+
+return a;
+}
+}
+return null;
+}
 }
     
